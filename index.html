@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MathVerse - Interactive Mathematics Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <span class="logo-icon">📐</span>
+        <span class="logo-text">MathVerse</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#practice" class="nav-link">Practice Arena</a>
+        <a href="#topics" class="nav-link">Curated Guides</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero & Search Section -->
+  <section class="hero">
+    <h1>Master Mathematics</h1>
+    <p>Explore comprehensive lessons, step-by-step guides, and interactive grade-level quizzes built for conceptual mastery.</p>
+    
+    <div class="search-container">
+      <div class="search-bar-wrapper">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="text" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="Search by topic (e.g. Calculus, Fractions, Quadratics, Geometry)..." 
+          autocomplete="off"
+        >
+        <button id="search-clear" class="search-clear" title="Clear search">✕</button>
+      </div>
+
+      <div class="filter-tags">
+        <button class="tag-btn active" data-category="all">All Topics</button>
+        <button class="tag-btn" data-category="Foundations">Foundations</button>
+        <button class="tag-btn" data-category="Algebra">Algebra</button>
+        <button class="tag-btn" data-category="Geometry">Geometry</button>
+        <button class="tag-btn" data-category="Calculus">Calculus</button>
+        <button class="tag-btn" data-category="Advanced Math">Advanced Math</button>
+        <button class="tag-btn" data-category="Statistics">Statistics</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container">
+
+    <!-- Practice Zone Section (Grade-based Self-Contained Quizzes) -->
+    <section id="practice" class="quiz-section">
+      <div class="quiz-header">
+        <div class="quiz-title-area">
+          <div class="quiz-badge">Interactive Practice Arena</div>
+          <h2>🎯 Grade-Level Math Quizzes</h2>
+          <p id="grade-description">Select your grade below for unlimited custom generated practice problems with instant solutions.</p>
+        </div>
+        <div class="quiz-stats">
+          <div class="stat-box">
+            <div class="stat-label">Score</div>
+            <div id="quiz-score" class="stat-value">0 / 0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Streak</div>
+            <div id="quiz-streak" class="stat-value">🔥 0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grade Selector Buttons -->
+      <div class="grades-wrapper">
+        <span class="grades-label">Choose Grade:</span>
+        <div class="grade-pills" id="grade-pills">
+          <button class="grade-btn active" data-grade="1">Grade 1</button>
+          <button class="grade-btn" data-grade="2">Grade 2</button>
+          <button class="grade-btn" data-grade="3">Grade 3</button>
+          <button class="grade-btn" data-grade="4">Grade 4</button>
+          <button class="grade-btn" data-grade="5">Grade 5</button>
+          <button class="grade-btn" data-grade="6">Grade 6</button>
+          <button class="grade-btn" data-grade="7">Grade 7</button>
+          <button class="grade-btn" data-grade="8">Grade 8</button>
+          <button class="grade-btn" data-grade="high">High School</button>
+        </div>
+      </div>
+
+      <div class="quiz-card">
+        <div class="quiz-topic-indicator" id="quiz-topic-indicator">Grade 1 • Addition & Subtraction</div>
+        <div id="quiz-problem" class="quiz-problem">Loading problem...</div>
+        
+        <!-- Multiple Choice Options Container -->
+        <div id="quiz-options-container" class="quiz-options" style="display: none;"></div>
+
+        <!-- Numeric/Text Input Container -->
+        <div id="quiz-input-container" class="quiz-input-group">
+          <input type="text" id="quiz-answer" class="quiz-input" placeholder="Your answer" autocomplete="off">
+          <button id="btn-submit-answer" class="btn-primary">Submit Answer</button>
+        </div>
+
+        <button id="btn-next-question" class="btn-next" style="display: none;">Next Question ➔</button>
+
+        <div id="quiz-feedback" class="quiz-feedback"></div>
+        <div id="quiz-explanation" class="quiz-explanation" style="display: none;"></div>
+      </div>
+    </section>
+
+    <!-- Topics Grid Section (Curated MathVerse Guides) -->
+    <section id="topics">
+      <div class="section-header">
+        <h2 class="section-title">MathVerse Study Guides</h2>
+        <span id="result-count" class="result-count">Loading topics...</span>
+      </div>
+
+      <div id="topics-grid" class="topics-grid">
+        <!-- Dynamically injected cards -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MathVerse Topic Guide Modal -->
+  <div id="topic-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-badge-wrapper">
+          <span class="modal-badge">MathVerse Study Guide</span>
+          <span id="modal-level" class="card-level">Beginner</span>
+        </div>
+        <button id="modal-close" class="modal-close-btn" title="Close Guide">✕</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="modal-title-area">
+          <span id="modal-icon" class="modal-icon">📐</span>
+          <div>
+            <span id="modal-category" class="card-category">Algebra</span>
+            <h2 id="modal-title" class="modal-title">Topic Title</h2>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3 class="modal-section-title">📘 Conceptual Overview</h3>
+          <p id="modal-summary" class="modal-text"></p>
+        </div>
+
+        <div class="modal-section">
+          <h3 class="modal-section-title">💡 Core Principles & Formulas</h3>
+          <ul id="modal-concepts" class="modal-list"></ul>
+        </div>
+
+        <div class="modal-section">
+          <h3 class="modal-section-title">✏️ Worked Step-by-Step Example</h3>
+          <div class="modal-example-box">
+            <div id="modal-example-problem" class="modal-example-problem"></div>
+            <div id="modal-example-steps" class="modal-example-steps"></div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button id="btn-modal-practice" class="btn-primary">
+            Practice in Arena ➔
+          </button>
+          <a id="modal-khan-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-supplementary">
+            Supplementary Video Lecture ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Designed and presented by <strong>MathVerse</strong> • Mathematics education made clear and intuitive.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #64748b;">Supplementary external video references link to verified Khan Academy educational modules.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
